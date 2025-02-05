@@ -2,15 +2,13 @@ package com.example.challenge.model;
 
 import com.example.challenge.dto.AlunoRequestDTO;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.List;
 
 @Entity
 @Table(name = "alunos")
-@Getter
-@Setter
+@Data
 public class Aluno {
 
     @Id
@@ -28,10 +26,53 @@ public class Aluno {
 
     public Aluno() {
     }
-    public Aluno(Long id, AlunoRequestDTO alunoRequestDTO){
+
+    public Aluno(Long id, AlunoRequestDTO alunoRequestDTO) {
         this.id = id;
-        this.nome = alunoRequestDTO.nome();
-        this.notas = alunoRequestDTO.notas();
-        this.frequencia = alunoRequestDTO.frequencia();
+        this.nome = alunoRequestDTO.getNome();
+        this.notas = alunoRequestDTO.getNotas();
+        this.frequencia = alunoRequestDTO.getFrequencia();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Double> getNotas() {
+        return notas;
+    }
+
+    public void setNotas(List<Double> notas) {
+        this.notas = notas;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Double getFrequencia() {
+        return frequencia;
+    }
+
+    public void setFrequencia(Double frequencia) {
+        this.frequencia = frequencia;
+    }
+
+    @Override
+    public String toString() {
+        return "Aluno{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", notas=" + notas +
+                ", frequencia=" + frequencia +
+                '}';
     }
 }
