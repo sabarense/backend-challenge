@@ -1,25 +1,56 @@
 package com.example.challenge.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.util.List;
-@Getter
-@Setter
 
-public record AlunoRequestDTO(
-//       @NotBlank(message = "O nome do aluno não pode estar vazio")
-        String nome,
+@Data
 
-//       @NotNull(message = "A lista de notas não pode ser nula")
-//       @Size(min = 5, max = 5, message = "Deve haver exatamente 5 notas")
-//       List<@Min(0) @Max(10)
-        List<Double> notas,
+public class AlunoRequestDTO {
 
-//        @NotNull(message = "A frequência não pode ser nula")
-//        @Min(value = 0, message = "A frequência não pode ser negativa")
-//        @Max(value = 100, message = "A frequência não pode ser superior a 100")
-        Double frequencia
-) {
+    @NotNull(message = "Notas não podem ser nulas")
+    @NotBlank(message = "O nome do aluno não pode estar vazio")
+    private String nome;
+
+    @Size(min = 5, max = 5, message = "Deve haver exatamente 5 notas")
+    private List<@Min(0) @Max(10) Double> notas;
+
+    @NotNull(message = "Frequência não pode ser nula")
+    @Min(value = 0, message = "A frequência não pode ser menor que 0")
+    @Max(value = 100, message = "A frequência não pode ser maior que 100")
+    private Double frequencia;
+
+    public AlunoRequestDTO() {
+    }
+
+    public AlunoRequestDTO(Double frequencia, List<Double> notas, String nome) {
+        this.frequencia = frequencia;
+        this.notas = notas;
+        this.nome = nome;
+    }
+
+    public @Size(min = 5, max = 5, message = "Deve haver exatamente 5 notas") List<@Min(0) @Max(10) Double> getNotas() {
+        return notas;
+    }
+
+    public void setNotas(@Size(min = 5, max = 5, message = "Deve haver exatamente 5 notas") List<@Min(0) @Max(10) Double> notas) {
+        this.notas = notas;
+    }
+
+    public @NotBlank(message = "O nome do aluno não pode estar vazio") String getNome() {
+        return nome;
+    }
+
+    public void setNome(@NotBlank(message = "O nome do aluno não pode estar vazio") String nome) {
+        this.nome = nome;
+    }
+
+    public @Min(0) @Max(100) Double getFrequencia() {
+        return frequencia;
+    }
+
+    public void setFrequencia(@Min(0) @Max(100) Double frequencia) {
+        this.frequencia = frequencia;
+    }
 }
