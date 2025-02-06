@@ -18,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("alunos")
 @Validated
+@CrossOrigin(origins = "http://localhost:3000")
 public class AlunoController {
 
     @Autowired
@@ -34,7 +35,7 @@ public class AlunoController {
     }
 
     @GetMapping
-    public ResponseEntity<?> listarAlunos() {
+    public ResponseEntity<?> getAlunos() {
         List<Aluno> alunos = alunoService.listarAlunos();
         logger.info("Alunos existentes: {}", alunos);
         return ResponseEntity.ok(alunos);
@@ -56,7 +57,7 @@ public class AlunoController {
     }
 
     @PutMapping("/notas/{id}")
-    public ResponseEntity<?> alterarNota(@PathVariable Long id, @RequestBody AlunoRequestDTO alunoRequestDTO) {
+    public ResponseEntity<?> atualizarNotas(@PathVariable Long id, @RequestBody AlunoRequestDTO alunoRequestDTO) {
         Aluno alunoAtualizado = alunoService.alterarNota(id, alunoRequestDTO);
         return ResponseEntity.ok(alunoAtualizado);
     }
